@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 
 const corsOption = {
-  origin: ['http://127.0.0.1:3000', 'http://localhost:3000', 'http://localhost:3001']
+  origin: ['http://127.0.0.1:3000', 'http://localhost:3000']
 }
 app.use(cors(corsOption));
 
@@ -25,8 +25,8 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/startups', startupsRoute);
-app.use('/api/comparisons', comparisonsRoute);
-app.use('/api/selectios', selectionsRoute);
+app.use('/api/startups', comparisonsRoute);
 app.use('/api/investments', investmentsRoute);
+app.use('/api/selectios', selectionsRoute);
 
 app.listen(process.env.PORT || 3000, () => console.log('Server Started'));

@@ -23,14 +23,11 @@ model Startup {
   revenue       Int // 매출액
   employees     Int
   description   String         @db.Text // 기업 소개
-  selectedCount Int            @default(0)
-  comparedCount Int            @default(0)
+  count         Int            @default(0)
   image         String?
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   mockInvestors MockInvestor[]
-  selections    Selection[]
-  comparisons   Comparison[]
 }
 
 model Category {
@@ -49,24 +46,4 @@ model MockInvestor {
   password     String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-}
-
-model Selection {
-  id         Int      @id @default(autoincrement())
-  sessionId  String
-  isSelected Boolean  @default(true)
-  startup    Startup  @relation(fields: [startupId], references: [id])
-  startupId  Int
-  createdAt  DateTime @default(now()) // 나의 기업 선택 시간
-  updatedAt  DateTime @updatedAt
-}
-
-model Comparison {
-  id         Int      @id @default(autoincrement())
-  sessionId  String
-  isCompared Boolean  @default(true)
-  startup    Startup  @relation(fields: [startupId], references: [id])
-  startupId  Int
-  createdAt  DateTime @default(now()) // 비교 기업 선택 시간
-  updatedAt  DateTime @updatedAt
 }

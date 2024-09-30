@@ -1,20 +1,19 @@
-import prisma from "../utils/prismaClient.js";
+import prisma from "../prisma.js";
 
 export const getStartups = async (req, res) => {
   const { page = 1, limit = 10, order = 'createdAt', sort = 'desc', keyword = '' } = req.query;
 
-  const safeSort = ['asc', 'desc'].includes(sort) ? sort : 'desc';
   const offset = (page - 1) * limit;
   const skip = offset;
   const take = parseInt(limit);
 
   const orderMapping = {
-    total_investment: 'simInvest',
+    totalInvestment: 'simInvest',
     revenue: 'revenue',
-    employee_count: 'employees',
+    employeeCount: 'employees',
     createdAt: 'createdAt',
   }
-  const orderBy = { [orderMapping[order] || 'createdAt']: safeSort };
+  const orderBy = { [orderMapping[order] || 'createdAt']: sort };
 
   const where = {
     AND: [
